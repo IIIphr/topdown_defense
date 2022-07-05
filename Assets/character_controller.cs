@@ -65,5 +65,13 @@ public class character_controller : MonoBehaviour
             animator.SetBool("is_walking_right", false);
             animator.SetBool("is_walking_left", false);
         }
+        if(Input.GetAxis("Jump") > 0)
+        {
+            animator.SetBool("is_slashing", true);
+        }
+        else
+        {
+            animator.SetBool("is_slashing", false);
+        }
     }
 }
