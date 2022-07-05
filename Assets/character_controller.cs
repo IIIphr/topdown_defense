@@ -31,6 +31,12 @@ public class character_controller : MonoBehaviour
             animator.SetBool("is_walking_up", false);
             animator.SetBool("is_walking_down", true);
         }
+        else
+        {
+            rb.velocity = new Vector3(rb.velocity.x, 0, 0);
+            animator.SetBool("is_walking_up", false);
+            animator.SetBool("is_walking_down", false);
+        }
         if (Input.GetAxis("Horizontal") > 0)
         {
             flag = true;
@@ -44,6 +50,12 @@ public class character_controller : MonoBehaviour
             rb.velocity = new Vector3(-1, rb.velocity.y, 0);
             animator.SetBool("is_walking_right", false);
             animator.SetBool("is_walking_left", true);
+        }
+        else
+        {
+            rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            animator.SetBool("is_walking_right", false);
+            animator.SetBool("is_walking_left", false);
         }
         if (!flag)
         {
