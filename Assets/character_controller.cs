@@ -6,6 +6,7 @@ public class character_controller : MonoBehaviour
 {
     [SerializeField] Animator animator;
     [SerializeField] Rigidbody rb;
+    [SerializeField] float movement_speed = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -16,54 +17,40 @@ public class character_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool flag = false;
-        if(Input.GetAxis("Vertical") > 0)
+        Vector3 move_vector = new Vector3(
+            Input.GetAxis("Horizontal"),
+            Input.GetAxis("Vertical"),
+            0);
+        rb.velocity = move_vector * movement_speed;
+        if(move_vector.x > 0)
         {
-            flag = true;
-            rb.velocity = new Vector3(rb.velocity.x, 1, 0);
-            animator.SetBool("is_walking_up", true);
-            animator.SetBool("is_walking_down", false);
-        }
-        else if (Input.GetAxis("Vertical") < 0)
-        {
-            flag = true;
-            rb.velocity = new Vector3(rb.velocity.x, -1, 0);
-            animator.SetBool("is_walking_up", false);
-            animator.SetBool("is_walking_down", true);
-        }
-        else
-        {
-            rb.velocity = new Vector3(rb.velocity.x, 0, 0);
-            animator.SetBool("is_walking_up", false);
-            animator.SetBool("is_walking_down", false);
-        }
-        if (Input.GetAxis("Horizontal") > 0)
-        {
-            flag = true;
-            rb.velocity = new Vector3(1, rb.velocity.y, 0);
             animator.SetBool("is_walking_right", true);
             animator.SetBool("is_walking_left", false);
         }
-        else if (Input.GetAxis("Horizontal") < 0)
+        else if(move_vector.x < 0)
         {
-            flag = true;
-            rb.velocity = new Vector3(-1, rb.velocity.y, 0);
             animator.SetBool("is_walking_right", false);
             animator.SetBool("is_walking_left", true);
         }
         else
         {
-            rb.velocity = new Vector3(0, rb.velocity.y, 0);
             animator.SetBool("is_walking_right", false);
             animator.SetBool("is_walking_left", false);
         }
-        if (!flag)
+        if (move_vector.y > 0)
         {
-            rb.velocity = Vector3.zero;
+            animator.SetBool("is_walking_up", true);
+            animator.SetBool("is_walking_down", false);
+        }
+        else if (move_vector.y < 0)
+        {
+            animator.SetBool("is_walking_up", false);
+            animator.SetBool("is_walking_down", true);
+        }
+        else
+        {
             animator.SetBool("is_walking_up", false);
             animator.SetBool("is_walking_down", false);
-            animator.SetBool("is_walking_right", false);
-            animator.SetBool("is_walking_left", false);
         }
         if(Input.GetAxis("Jump") > 0)
         {
