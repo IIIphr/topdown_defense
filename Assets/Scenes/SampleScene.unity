@@ -552,7 +552,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 2081238475}
   movement_speed: 1
+  sprint_speed: 2
   animator: {fileID: 1805741395}
+  camera_distance: 5
+  min_camera_distance: 2
+  max_camera_distance: 8
 --- !u!4 &2081238477
 Transform:
   m_ObjectHideFlags: 0

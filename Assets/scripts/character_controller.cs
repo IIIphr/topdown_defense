@@ -6,6 +6,7 @@ public class character_controller : MonoBehaviour
 {
     [SerializeField] Rigidbody rb;
     [SerializeField] float movement_speed = 1f;
+    [SerializeField] float sprint_speed = 1.5f;
     [SerializeField] Animator animator;
     [SerializeField] float camera_distance = 5f;
     [SerializeField] float min_camera_distance = 2f;
@@ -87,7 +88,8 @@ public class character_controller : MonoBehaviour
             Input.GetAxis("Horizontal"),
             Input.GetAxis("Vertical"),
             0);
-        rb.velocity = move_vector * movement_speed;
+        rb.velocity = move_vector * 
+            ( Input.GetAxis("Fire3") > 0 ? sprint_speed : movement_speed );
         if(move_vector.x > 0)
         {
             anim_change("right");
