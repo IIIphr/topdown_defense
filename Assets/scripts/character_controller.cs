@@ -8,6 +8,8 @@ public class character_controller : MonoBehaviour
     [SerializeField] float movement_speed = 1f;
     [SerializeField] Animator animator;
     [SerializeField] float camera_distance = 5f;
+    [SerializeField] float min_camera_distance = 2f;
+    [SerializeField] float max_camera_distance = 8f;
     string anim_state;
     int facing_dir = 0;
     // 0 : down
@@ -106,6 +108,8 @@ public class character_controller : MonoBehaviour
         {
             anim_change("idle");
         }
+        camera_distance = Mathf.Max(min_camera_distance,
+            Mathf.Min(max_camera_distance, camera_distance - Input.GetAxis("Mouse ScrollWheel")));
         Camera.main.transform.position = new Vector3(
             transform.position.x, transform.position.y, -1 * camera_distance);
     }
